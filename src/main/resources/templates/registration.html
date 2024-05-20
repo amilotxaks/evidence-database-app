@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-control,
+        .card,
+        .register {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div th:if="${registrationError}">
+                <div class="text-center alert alert-danger alert-dismissible mt-3 fade show" role="alert">
+                    <h4 class="alert-heading">Ошибка регистрации</h4>
+                    <th:block th:text="${registrationError}"></th:block>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3 class="text-center">Регистрация</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/registration}" method="post" th:object="${UserRegistrationForm}">
+                        <div class="form-group">
+                            <label for="username">Имя пользователя:</label>
+                            <input type="text" class="form-control" id="username" th:field="*{username}"
+                                   placeholder="Имя пользователя" required minlength="5" maxlength="16">
+                            <small class="text-danger" th:if="${#fields.hasErrors('username')}"
+                                   th:errors="*{username}"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Пароль:</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}"
+                                   placeholder="Пароль" required minlength="6" maxlength="32">
+                            <small class="text-danger" th:if="${#fields.hasErrors('password')}"
+                                   th:errors="*{password}"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Подтверждение пароля:</label>
+                            <input type="password" class="form-control" id="confirmPassword"
+                                   th:field="*{confirmPassword}"
+                                   placeholder="Подтвердите пароль" required minlength="6" maxlength="32">
+                            <small class="text-danger" th:if="${#fields.hasErrors('password')}"
+                                   th:errors="*{password}"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="invitationKey">Ключ приглашения:</label>
+                            <input type="text" class="form-control" id="invitationKey"
+                                   th:field="*{invitationKey}"
+                                   placeholder="Введите ключ" required minlength="16" maxlength="32">
+                            <small class="text-danger" th:if="${#fields.hasErrors('invitationKey')}"
+                                   th:errors="*{invitationKey}"></small>
+                        </div>
+                        <button type="submit" class="btn btn-dark btn-block register">Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="text-center mt-3">
+                    <p>Уже есть аккаунт?
+                        <a th:href="@{/login}">Войти</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
