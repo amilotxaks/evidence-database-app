@@ -6,8 +6,8 @@
     <title th:text="${title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        #caseName,
-        .search {
+        #caseNumber,
+        .evidence {
             border-radius: 10px;
         }
     </style>
@@ -28,13 +28,14 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h1 class="text-center mb-3">Поиск судебного дела</h1>
-            <form id="searchForm" method="post">
+            <form id="searchForm" method="post" th:object="${GetEvidenceForm}">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="caseName" name="caseName"
-                           placeholder="Введите номер дела" required>
-                    <small th:if="${errorMessage}" class="text-danger" th:text="${errorMessage}"></small>
+                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" th:field="*{caseNumber}"
+                    <small class="text-danger" th:if="${#fields.hasErrors('caseNumber')}"
+                           th:errors="*{caseNumber}"></small>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block search">Найти</button>
+                <button type="submit" class="btn btn-primary btn-block evidence">Найти</button>
+                <a th:href="@{/add-evidence}" class="btn btn-secondary btn-block evidence">Добавить новое дело</a>
             </form>
         </div>
     </div>
@@ -44,8 +45,8 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Дело №<span th:text="${evidence.id}"></span></h5>
-                    <p class="card-text" th:text="${evidence.description}"></p>
+                    <h5 class="card-title">Дело №<span th:text="${evidence.caseNumber}"></span></h5>
+                    <p class="card-text" th:text="${evidence.caseDescription}"></p>
                 </div>
             </div>
         </div>

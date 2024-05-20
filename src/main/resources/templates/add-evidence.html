@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #caseNumber,
+        #caseDescription,
+        .evidence {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <strong>Привет, <span th:text="${username} + '!'"></span></strong>
+            <form th:action="@{/logout}" method="post">
+                <button class="btn btn-link">Выйти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="text-center mt-5">Добавить новое дело</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form th:action="@{/add-evidence}" method="post" th:object="${AddEvidenceForm}">
+                <div class="form-group">
+                    <label for="caseNumber">Номер дела</label>
+                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" required placeholder="B-25-KL">
+                    <small class="text-danger" th:if="${#fields.hasErrors('caseNumber')}"
+                           th:errors="*{caseNumber}"></small>
+                </div>
+                <div class="form-group">
+                    <label for="caseDescription">Описание дела</label>
+                    <textarea class="form-control" id="caseDescription" name="caseDescription" required rows="3"></textarea>
+                    <small class="text-danger" th:if="${#fields.hasErrors('caseDescription')}"
+                           th:errors="*{caseDescription}"></small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block evidence">Добавить дело</button>
+                <a href="/" class="btn btn-secondary btn-block evidence">Найти дело</a>
+            </form>
+            <div class="text-center alert alert-success alert-dismissible mt-3 fade show" role="alert" th:if="${addEvidenceSuccess}">
+                <h4 class="alert-heading">Успешно</h4>
+                <th:block th:text="${addEvidenceSuccess}"></th:block>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="text-center alert alert-danger alert-dismissible mt-3 fade show" role="alert" th:if="${addEvidenceError}">
+                <h4 class="alert-heading">Произошла ошибка</h4>
+                <th:block th:text="${addEvidenceError}"></th:block>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

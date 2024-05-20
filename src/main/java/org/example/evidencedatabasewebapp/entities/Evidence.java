@@ -19,6 +19,9 @@ public class Evidence implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String caseNumber;
+
     @Column(nullable = false, length = -1)
-    private String description;
+    private String caseDescription;
 }
