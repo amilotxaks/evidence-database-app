@@ -30,7 +30,7 @@
             <h1 class="text-center mb-3">Поиск судебного дела</h1>
             <form id="searchForm" method="post" th:object="${GetEvidenceForm}">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" th:field="*{caseNumber}"
+                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" th:field="*{caseNumber}">
                     <small class="text-danger" th:if="${#fields.hasErrors('caseNumber')}"
                            th:errors="*{caseNumber}"></small>
                 </div>
