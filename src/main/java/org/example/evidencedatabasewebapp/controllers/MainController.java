@@ -33,16 +33,18 @@ public class MainController {
 
     @PostMapping(value = "/")
     public String getEvidence(@ModelAttribute("GetEvidenceForm") GetEvidenceForm form, Model model, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        String username = userDetails.getUsername();
+        model.addAttribute("title", "Поиск судебного дела");
+        model.addAttribute("username", username);
+
         validator.validate(form, bindingResult);
         if (bindingResult.hasErrors()) {
             return "main";
         }
 
-        String username = userDetails.getUsername();
         String caseNumber = form.getCaseNumber();
         Optional<Evidence> evidence = evidenceService.findByCaseNumber(caseNumber);
         evidence.ifPresentOrElse(value -> model.addAttribute("evidence", value), () -> model.addAttribute("evidenceEmpty", "Дело не найдено в базе данных."));
-        model.addAttribute("username", username);
 
         return "main";
     }
