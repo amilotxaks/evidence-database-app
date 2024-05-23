@@ -30,6 +30,10 @@ public class AddEvidenceController {
 
     @PostMapping(value = "/add-evidence")
     public String evidenceSubmit(@ModelAttribute("AddEvidenceForm") AddEvidenceForm form, Model model, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        String username = userDetails.getUsername();
+        model.addAttribute("title", "Добавить новое дело");
+        model.addAttribute("username", username);
+
         validator.validate(form, bindingResult);
         if (bindingResult.hasErrors()) {
             return "add-evidence";
@@ -42,9 +46,6 @@ public class AddEvidenceController {
             model.addAttribute("addEvidenceError", ex.getMessage());
         }
 
-        String username = userDetails.getUsername();
-        model.addAttribute("title", "Добавить новое дело");
-        model.addAttribute("username", username);
         return "add-evidence";
     }
 }
