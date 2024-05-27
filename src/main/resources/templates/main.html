@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         #caseNumber,
+        #editButton,
+        #saveButton,
+        #cancelButton,
         .evidence {
             border-radius: 10px;
         }
@@ -45,8 +48,17 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Дело №<span th:text="${evidence.caseNumber}"></span></h5>
-                    <p class="card-text" th:text="${evidence.caseDescription}"></p>
+                    <h5 class="card-title">Дело №<span th:text="${evidence.caseNumber}" id="editCaseNumber"></span></h5>
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text" id="editText" th:text="${evidence.caseDescription}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-right mt-2">
+                            <button id="editButton" class="btn btn-primary btn-sm">Редактировать</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,5 +75,77 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function setEditButton() {
+        document.getElementById("editButton").addEventListener("click", function () {
+            let editTextElement = document.getElementById("editText");
+            let textareaElement = document.createElement("textarea");
+            textareaElement.className = "form-control";
+            textareaElement.required = true;
+            textareaElement.rows = 6;
+            textareaElement.value = editTextElement.innerText;
+            editTextElement.parentNode.replaceChild(textareaElement, editTextElement);
+
+            let saveButton = document.createElement("button");
+            saveButton.className = "btn btn-primary btn-sm";
+            saveButton.id = "saveButton";
+            saveButton.innerText = "Сохранить";
+            saveButton.addEventListener("click", function () {
+                let updatedText = textareaElement.value;
+                let caseNumber = document.getElementById("editCaseNumber").textContent;
+                let data = {
+                    caseNumber: caseNumber,
+                    caseDescription: updatedText
+                };
+                $.ajax({
+                    url: '/edit-evidence',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (result) {
+                        console.log("Сохранено:", updatedText);
+                        console.log(data);
+                        // Замена textarea на обновленный текст
+                        let updatedTextElement = document.createElement("p");
+                        updatedTextElement.className = "card-text";
+                        updatedTextElement.id = "editText"
+                        updatedTextElement.innerText = updatedText;
+                        textareaElement.parentNode.replaceChild(updatedTextElement, textareaElement);
+                        // Замена "Сохранить" и "Отменить" на кнопку "Редактировать"
+                        saveButton.parentNode.replaceChild(editButton, saveButton);
+                        cancelButton.parentNode.replaceChild(editButton, cancelButton);
+                        setEditButton(); // Установить обработчик события для кнопки "Редактировать" снова
+                    },
+                    error: function (error) {
+                        console.error('Ошибка:', error);
+                    }
+                });
+            });
+
+            let cancelButton = document.createElement("button");
+            cancelButton.className = "btn btn-secondary btn-sm ml-2";
+            cancelButton.id = "cancelButton"
+            cancelButton.innerText = "Отменить";
+            cancelButton.addEventListener("click", function () {
+                // Замена textarea на исходный текст
+                let originalTextElement = document.createElement("p");
+                originalTextElement.className = "card-text";
+                originalTextElement.id = "editText"
+                originalTextElement.innerText = editTextElement.innerText;
+                textareaElement.parentNode.replaceChild(originalTextElement, textareaElement);
+                // Замена "Сохранить" и "Отменить" на кнопку "Редактировать"
+                saveButton.parentNode.replaceChild(editButton, saveButton);
+                cancelButton.parentNode.replaceChild(editButton, cancelButton);
+                setEditButton();
+            });
+
+            let editButton = document.getElementById("editButton");
+            editButton.parentNode.replaceChild(saveButton, editButton);
+            saveButton.insertAdjacentElement("afterend", cancelButton);
+        });
+    }
+
+    setEditButton();
+</script>
 </body>
 </html>

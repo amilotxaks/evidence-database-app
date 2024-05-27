@@ -29,4 +29,12 @@ public class EvidenceService {
             throw new IllegalArgumentException("Невозможно создать доказательство. Нарушение уникальности CaseNumber.");
         }
     }
+
+    public void updateEvidenceDescription(String caseNumber, String caseDescription) {
+        Evidence evidence = evidenceRepository.findByCaseNumber(caseNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Дело не найдено"));
+
+        evidence.setCaseDescription(caseDescription);
+        evidenceRepository.save(evidence);
+    }
 }
