@@ -1,6 +1,6 @@
-package org.example.evidencedatabasewebapp.repository;
+package org.backend.evidencedatabasewebapp.repository;
 
-import org.example.evidencedatabasewebapp.entities.Evidence;
+import org.backend.evidencedatabasewebapp.entities.Evidence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

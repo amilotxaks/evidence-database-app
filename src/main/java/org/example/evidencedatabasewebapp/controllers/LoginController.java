@@ -1,4 +1,4 @@
-package org.example.evidencedatabasewebapp.controllers;
+package org.backend.evidencedatabasewebapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

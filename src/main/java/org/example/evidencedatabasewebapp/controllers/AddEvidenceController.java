@@ -1,9 +1,9 @@
-package org.example.evidencedatabasewebapp.controllers;
+package org.backend.evidencedatabasewebapp.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.evidencedatabasewebapp.dtos.AddEvidenceForm;
-import org.example.evidencedatabasewebapp.services.EvidenceService;
-import org.example.evidencedatabasewebapp.userDetails.UserDetailsImpl;
+import org.backend.evidencedatabasewebapp.dtos.AddEvidenceForm;
+import org.backend.evidencedatabasewebapp.services.EvidenceService;
+import org.backend.evidencedatabasewebapp.userDetails.UserDetailsImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

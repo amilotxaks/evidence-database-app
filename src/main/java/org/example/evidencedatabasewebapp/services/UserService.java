@@ -1,9 +1,9 @@
-package org.example.evidencedatabasewebapp.services;
+package org.backend.evidencedatabasewebapp.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.evidencedatabasewebapp.dtos.UserRegistrationForm;
-import org.example.evidencedatabasewebapp.entities.User;
-import org.example.evidencedatabasewebapp.repository.UserRepository;
+import org.backend.evidencedatabasewebapp.dtos.UserRegistrationForm;
+import org.backend.evidencedatabasewebapp.entities.User;
+import org.backend.evidencedatabasewebapp.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

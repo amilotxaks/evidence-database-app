@@ -1,5 +1,5 @@
-package org.example.evidencedatabasewebapp.dtos;
+package org.backend.evidencedatabasewebapp.dtos;
 
-public record EvidenceRequest(Integer caseName) {
+public record EvidenceRequest(Integer caseName){
 
 }

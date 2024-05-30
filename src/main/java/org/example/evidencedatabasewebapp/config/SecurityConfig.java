@@ -1,7 +1,7 @@
-package org.example.evidencedatabasewebapp.config;
+package org.backend.evidencedatabasewebapp.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.evidencedatabasewebapp.userDetails.UserDetailsServiceImpl;
+import org.backend.evidencedatabasewebapp.userDetails.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

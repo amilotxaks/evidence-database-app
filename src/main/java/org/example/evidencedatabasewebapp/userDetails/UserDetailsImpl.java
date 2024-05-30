@@ -1,8 +1,8 @@
-package org.example.evidencedatabasewebapp.userDetails;
+package org.backend.evidencedatabasewebapp.userDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.example.evidencedatabasewebapp.entities.User;
+import org.backend.evidencedatabasewebapp.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

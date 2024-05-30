@@ -1,9 +1,9 @@
-package org.example.evidencedatabasewebapp.services;
+package org.backend.evidencedatabasewebapp.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.evidencedatabasewebapp.dtos.AddEvidenceForm;
-import org.example.evidencedatabasewebapp.entities.Evidence;
-import org.example.evidencedatabasewebapp.repository.EvidenceRepository;
+import org.backend.evidencedatabasewebapp.dtos.AddEvidenceForm;
+import org.backend.evidencedatabasewebapp.entities.Evidence;
+import org.backend.evidencedatabasewebapp.repository.EvidenceRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,11 @@ public class EvidenceService {
         try {
             Evidence evidence = Evidence.builder()
                     .caseNumber(form.getCaseNumber())
+                    .accused(form.getAccused())
+                    .reason(form.getReason())
+                    .caseType(form.getCaseType())
+                    .severity(form.getSeverity())
+                    .victim(form.getVictim())
                     .caseDescription(form.getCaseDescription())
                     .build();
             evidenceRepository.save(evidence);

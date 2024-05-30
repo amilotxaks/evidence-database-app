@@ -1,11 +1,11 @@
-package org.example.evidencedatabasewebapp.controllers;
+package org.backend.evidencedatabasewebapp.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.evidencedatabasewebapp.dtos.UserRegistrationForm;
-import org.example.evidencedatabasewebapp.repository.UserRepository;
-import org.example.evidencedatabasewebapp.services.UserService;
+import org.backend.evidencedatabasewebapp.dtos.UserRegistrationForm;
+import org.backend.evidencedatabasewebapp.repository.UserRepository;
+import org.backend.evidencedatabasewebapp.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +57,7 @@ public class RegistrationController {
             log.error("Пароли не совпадают.");
         }
 
-        if (!invitationKey.equals(key)) {
+        if (!invitationKey.equals(key)){
             bindingResult.rejectValue("invitationKey", "error.invitationKeyMismatch", "Неверный ключ");
             log.error("Неверный ключ приглашения");
         }

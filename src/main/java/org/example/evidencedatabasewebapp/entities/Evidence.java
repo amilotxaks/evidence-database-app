@@ -1,4 +1,4 @@
-package org.example.evidencedatabasewebapp.entities;
+package org.backend.evidencedatabasewebapp.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +21,16 @@ public class Evidence implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String caseNumber;
+
+    private String accused;
+
+    private String reason;
+
+    private String victim;
+
+    private String caseType;
+
+    private String severity;
 
     @Column(nullable = false, length = -1)
     private String caseDescription;

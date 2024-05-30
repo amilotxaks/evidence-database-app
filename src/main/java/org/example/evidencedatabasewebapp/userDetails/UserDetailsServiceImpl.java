@@ -1,9 +1,9 @@
-package org.example.evidencedatabasewebapp.userDetails;
+package org.backend.evidencedatabasewebapp.userDetails;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.evidencedatabasewebapp.entities.User;
-import org.example.evidencedatabasewebapp.repository.UserRepository;
+import org.backend.evidencedatabasewebapp.entities.User;
+import org.backend.evidencedatabasewebapp.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
