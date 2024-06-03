@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="text-center mb-3" th:if="${evidences != null && evidences.size() > 0}">
+        <a th:href="@{/search}" class="btn btn-primary">Вернуться на страницу поиска
+        </a>
+    </div>
+    <div class="row mt-4" id="searchResults" th:if="${evidences != null && evidences.size() > 0}">
+        <div class="col-md-8 offset-md-2" th:each="evidence : ${evidences}">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="card-title">Дело №<span th:text="${evidence.caseNumber}"
+                                                               id="editCaseNumber"></span></h5>
+                            <p class="card-text"><strong>Обвиняемый:</strong> <span
+                                    th:text="${evidence.accused}"></span></p>
+                            <p class="card-text"><strong>Потерпевший:</strong> <span
+                                    th:text="${evidence.victim}"></span></p>
+                            <p class="card-text"><strong>Причина:</strong> <span th:text="${evidence.reason}"></span>
+                            </p>
+                            <p class="card-text"><strong>Тип дела:</strong> <span th:text="${evidence.caseType}"></span>
+                            </p>
+                            <p class="card-text"><strong>Степень тяжести:</strong> <span
+                                    th:text="${evidence.severity}"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="card-text" id="editText" th:text="${evidence.caseDescription}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4" th:if="${evidences == null || evidences.size() == 0}">
+        <div class="col-md-8 offset-md-2 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Нет подходящих дел</h5>
+                    <p class="card-text">Пожалуйста, вернитесь на страницу поиска и попробуйте другие параметры.</p>
+                    <a th:href="@{/search}" class="btn btn-primary">Вернуться на страницу поиска</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -6,8 +6,7 @@
     <title th:text="${title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        #caseNumber,
-        #caseDescription,
+        .form-control,
         .evidence {
             border-radius: 10px;
         }
@@ -26,26 +25,67 @@
 </div>
 
 <div class="container">
-    <h1 class="text-center mt-5">Добавить новое дело</h1>
+    <h1 class="text-center mt-5">Создание нового дела</h1>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form th:action="@{/add-evidence}" method="post" th:object="${AddEvidenceForm}">
                 <div class="form-group">
                     <label for="caseNumber">Номер дела</label>
-                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" required placeholder="B-25-KL">
+                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" required
+                           placeholder="B-25-KL">
                     <small class="text-danger" th:if="${#fields.hasErrors('caseNumber')}"
                            th:errors="*{caseNumber}"></small>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="accused">Обвиняемый</label>
+                        <input type="text" class="form-control" id="accused" name="accused"
+                               placeholder="Enter accused name" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('accused')}"
+                               th:errors="*{accused}"></small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="victim">Потерпевший</label>
+                        <input type="text" class="form-control" id="victim" name="victim"
+                               placeholder="Enter victim name" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('victim')}" th:errors="*{victim}"></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Причина</label>
+                    <input type="text" class="form-control" id="reason" name="reason" required
+                           placeholder="Enter reason">
+                    <small class="text-danger" th:if="${#fields.hasErrors('reason')}"
+                           th:errors="*{reason}"></small>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6"><label for="caseType">Тип дела</label>
+                        <input type="text" class="form-control" id="caseType" name="caseType"
+                               placeholder="Enter case type" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('caseType')}"
+                               th:errors="*{caseType}"></small>
+                    </div>
+                    <div class="form-group col-md-6"><label for="severity">Степень тяжести</label> <select
+                            class="form-control" id="severity" name="severity" required>
+                        <option value="Небольшой тяжести">Небольшой тяжести</option>
+                        <option value="Средней тяжести">Средней тяжести</option>
+                        <option value="Тяжкое">Тяжкое</option>
+                        <option value="Особо тяжкие">Особо тяжкое</option>
+                    </select> <small class="text-danger" th:if="${#fields.hasErrors('severity')}"
+                                     th:errors="*{severity}"></small></div>
+                </div>
                 <div class="form-group">
                     <label for="caseDescription">Описание дела</label>
-                    <textarea class="form-control" id="caseDescription" name="caseDescription" required rows="6"></textarea>
+                    <textarea class="form-control" id="caseDescription" name="caseDescription" required rows="6"
+                              placeholder="Enter a case description"></textarea>
                     <small class="text-danger" th:if="${#fields.hasErrors('caseDescription')}"
                            th:errors="*{caseDescription}"></small>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block evidence">Добавить дело</button>
-                <a href="/" class="btn btn-secondary btn-block evidence">Найти дело</a>
+                <a th:href="@{/search}" class="btn btn-secondary btn-block evidence">Найти дело</a>
             </form>
-            <div class="text-center alert alert-success alert-dismissible mt-3 fade show" role="alert" th:if="${addEvidenceSuccess}">
+            <div class="text-center alert alert-success alert-dismissible mt-3 fade show" role="alert"
+                 th:if="${addEvidenceSuccess}">
                 <h4 class="alert-heading">Успешно</h4>
                 <th:block th:text="${addEvidenceSuccess}"></th:block>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -53,7 +93,8 @@
                 </button>
             </div>
 
-            <div class="text-center alert alert-danger alert-dismissible mt-3 fade show" role="alert" th:if="${addEvidenceError}">
+            <div class="text-center alert alert-danger alert-dismissible mt-3 fade show" role="alert"
+                 th:if="${addEvidenceError}">
                 <h4 class="alert-heading">Произошла ошибка</h4>
                 <th:block th:text="${addEvidenceError}"></th:block>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

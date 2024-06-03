@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Добро пожаловать в базу уголовных дел</h1>
+        <p class="lead">Легко управляйте своими делами и доказательствами.</p>
+        <hr class="my-4">
+        <p>Чем бы Вы хотели заняться?</p>
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/search}" class="btn btn-primary btn-lg mr-3" role="button">Найти дело</a>
+            <a th:href="@{/add-evidence}" class="btn btn-primary btn-lg" role="button">Добавить дело</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -33,13 +33,23 @@
             <h1 class="text-center mb-3">Поиск судебного дела</h1>
             <form id="searchForm" method="post" th:object="${GetEvidenceForm}">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" th:field="*{caseNumber}">
+                    <input type="text" class="form-control" id="caseNumber" name="caseNumber" th:field="*{caseNumber}"
+                           placeholder="Введите номер дела" required>
                     <small class="text-danger" th:if="${#fields.hasErrors('caseNumber')}"
                            th:errors="*{caseNumber}"></small>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block evidence">Найти</button>
                 <a th:href="@{/add-evidence}" class="btn btn-secondary btn-block evidence">Добавить новое дело</a>
             </form>
+            <div class="mt-4 text-center">
+                <h5>Перейти к делам:</h5>
+                <div class="d-flex justify-content-center">
+                    <a th:href="@{/evidence/minor}" class="btn btn-outline-primary mr-2">Небольшой тяжести</a>
+                    <a th:href="@{/evidence/moderate}" class="btn btn-outline-primary mr-2">Средней тяжести</a>
+                    <a th:href="@{/evidence/serious}" class="btn btn-outline-primary mr-2">Тяжкие</a>
+                    <a th:href="@{/evidence/severe}" class="btn btn-outline-primary">Особо тяжкие</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -48,9 +58,16 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Дело №<span th:text="${evidence.caseNumber}" id="editCaseNumber"></span></h5>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6">
+                            <h5 class="card-title">Дело №<span th:text="${evidence.caseNumber}" id="editCaseNumber"></span></h5>
+                            <p class="card-text"><strong>Обвиняемый:</strong> <span th:text="${evidence.accused}"></span></p>
+                            <p class="card-text"><strong>Потерпевший:</strong> <span th:text="${evidence.victim}"></span></p>
+                            <p class="card-text"><strong>Причина:</strong> <span th:text="${evidence.reason}"></span></p>
+                            <p class="card-text"><strong>Тип дела:</strong> <span th:text="${evidence.caseType}"></span></p>
+                            <p class="card-text"><strong>Степень тяжести:</strong> <span th:text="${evidence.severity}"></span></p>
+                        </div>
+                        <div class="col-md-6">
                             <p class="card-text" id="editText" th:text="${evidence.caseDescription}"></p>
                         </div>
                     </div>
@@ -82,7 +99,7 @@
             let textareaElement = document.createElement("textarea");
             textareaElement.className = "form-control";
             textareaElement.required = true;
-            textareaElement.rows = 6;
+            textareaElement.rows = 15;
             textareaElement.value = editTextElement.innerText;
             editTextElement.parentNode.replaceChild(textareaElement, editTextElement);
 
@@ -102,7 +119,7 @@
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(data),
-                    success: function (result) {
+                    success: function(result) {
                         console.log("Сохранено:", updatedText);
                         console.log(data);
                         // Замена textarea на обновленный текст
@@ -116,7 +133,7 @@
                         cancelButton.parentNode.replaceChild(editButton, cancelButton);
                         setEditButton(); // Установить обработчик события для кнопки "Редактировать" снова
                     },
-                    error: function (error) {
+                    error: function(error) {
                         console.error('Ошибка:', error);
                     }
                 });
